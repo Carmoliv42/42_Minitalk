@@ -6,7 +6,17 @@ static void handler(int sig, siginfo_t *info, void *context)
     (void)context;
     static unsigned char c = 0;
     static int bits = 0;
+    //static pid_t client_pid = 0;
 
+    /*if (sig != SIGUSR1 && sig != SIGUSR2)
+        return; // Ignora sinais não esperados
+    if (client_pid != info->si_pid)
+    {
+        client_pid = info->si_pid; // Atualiza PID do cliente
+        bits = 0; // Reseta contagem de bits
+        c = 0; // Reseta caractere acumulado
+        ft_printf("Mensagem cliente PID: %d\n", client_pid); // Imprime novo PID
+    }*/
     /* Acumula bit (MSB -> LSB): shift e seta LSB com o bit recebido */
     c <<= 1;
     if (sig == SIGUSR1)
@@ -15,11 +25,15 @@ static void handler(int sig, siginfo_t *info, void *context)
     bits++;
     if (bits == 8)
     {
-        /* Escreve o caractere completo */
-        write(1, &c, 1);
+        if (c == 0)
+            write(1, "\n", 1); /* Se caractere nulo, imprime nova linha */
+        else
+            /* Escreve o caractere completo */
+            write(1, &c, 1);
         /* Reseta para o próximo byte */
         bits = 0;
         c = 0;
+        
     }
 }
 

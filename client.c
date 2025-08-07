@@ -1,4 +1,3 @@
-#define _POSIX_C_SOURCE 200809L
 #include "minitalk.h"
 
 static void send_char(int pid, unsigned char c)
@@ -22,7 +21,7 @@ static void send_char(int pid, unsigned char c)
                 exit(1);
             }
         }
-        usleep(100); // Pequeno atraso para não perder sinais
+        usleep(500); // Pequeno atraso para não perder sinais
         i--;
     }
 }
