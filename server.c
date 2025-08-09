@@ -1,16 +1,44 @@
 #include "minitalk.h"
 
+static void put_pid(int pid)
+{
+    char buf[12]; // suficiente para guardar um int e o '\0'
+    int i = 10;
+
+    buf[11] = '\0';
+    if (pid == 0)
+    {
+        write(1, "0", 1);
+        return;
+    }
+    while (pid > 0 && i >= 0)
+    {
+        buf[i--] = (pid % 10) + '0';
+        pid /= 10;
+    }
+    write(1, &buf[i + 1], 10 - i);
+}
+
 static void handler(int sig, siginfo_t *info, void *context)
 {
-    (void)info;
+    //(void)info;
     (void)context;
     static unsigned char c = 0;
     static int bits = 0;
     //static pid_t client_pid = 0;
+    static pid_t last_pid = 0;
 
-    /*if (sig != SIGUSR1 && sig != SIGUSR2)
+    if (sig != SIGUSR1 && sig != SIGUSR2)
         return; // Ignora sinais não esperados
-    if (client_pid != info->si_pid)
+  if (last_pid != info->si_pid && bits == 0)
+    {
+        write(1, "\nMensagem cliente PID: ", 24);
+        put_pid(info->si_pid);
+        write(1, "\n", 1);
+        last_pid = info->si_pid;
+    }
+
+    /*if (client_pid != info->si_pid)
     {
         client_pid = info->si_pid; // Atualiza PID do cliente
         bits = 0; // Reseta contagem de bits

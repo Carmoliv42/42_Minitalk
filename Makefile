@@ -4,7 +4,7 @@ NAME_CLIENT = client
 
 # Compilador e flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -D_POSIX_C_SOURCE=200809L
+CFLAGS = -Wall -Wextra -Werror
 
 # Caminhos das bibliotecas
 LIBFT_DIR = libft
