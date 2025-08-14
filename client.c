@@ -6,7 +6,7 @@
 /*   By: carmoliv <carmoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 17:14:50 by carmoliv          #+#    #+#             */
-/*   Updated: 2025/08/14 17:54:47 by carmoliv         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:32:09 by carmoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 3)
 	{
-		printf("Uso: %s <PID> \"mensagem\"\n", argv[0]);
+		printf("Use: %s <PID> \"mensagem\"\n", argv[0]);
 		return (1);
 	}
 	pid = ft_atoi(argv[1]);
