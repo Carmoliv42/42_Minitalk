@@ -24,7 +24,7 @@ static void	send_char(int pid, unsigned char c)
 		{
 			if (kill(pid, SIGUSR1) == -1)
 			{
-				perror("Erro ao enviar SIGUSR1");
+				write(2, "Erro ao enviar SIGUSR1\n", 23);
 				exit(1);
 			}
 		}
@@ -32,11 +32,11 @@ static void	send_char(int pid, unsigned char c)
 		{
 			if (kill(pid, SIGUSR2) == -1)
 			{
-				perror("Erro ao enviar SIGUSR2");
+				write(2, "Erro ao enviar SIGUSR2\n", 23);
 				exit(1);
 			}
 		}
-		usleep(700);
+		usleep(1000);
 		i--;
 	}
 }
@@ -48,13 +48,13 @@ int	main(int argc, char **argv)
 
 	if (argc != 3)
 	{
-		printf("Use: %s <PID> \"mensagem\"\n", argv[0]);
+		ft_printf("Use: %s <PID> \"mensagem\"\n", argv[0]);
 		return (1);
 	}
 	pid = ft_atoi(argv[1]);
 	if (pid <= 0)
 	{
-		printf("PID inválido!\n");
+		ft_printf("PID inválido!\n");
 		return (1);
 	}
 	i = 0;
