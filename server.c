@@ -29,7 +29,7 @@ static void	put_pid(int pid)
 		buf[i--] = (pid % 10) + '0';
 		pid /= 10;
 	}
-	write(1, &buf[i + 1], 10 - i);
+	write(1, &buf[i + 1], 11 - i);
 }
 
 static void	handler(int sig, siginfo_t *info, void *context)
@@ -71,12 +71,12 @@ int	main(void)
 	sa.sa_sigaction = handler;
 	if (sigaction(SIGUSR1, &sa, NULL) == -1)
 	{
-		perror("sigaction SIGUSR1");
+		write(2, "Error: sigaction SIGUSR1\n", 25);
 		return (1);
 	}
 	if (sigaction(SIGUSR2, &sa, NULL) == -1)
 	{
-		perror("sigaction SIGUSR2");
+		write(2, "Error: sigaction SIGUSR2\n", 25);
 		return (1);
 	}
 	while (1)
